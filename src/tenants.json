@@ -1,0 +1,54 @@
+{
+  "tenants": [
+    {
+      "uuid": "6bd522bb-66ae-11ed-bd50-0242ac180007",
+      "name": "VALYRIO PROD",
+      "baseUrl": "https://valyrio-prod.aper.cloud/"
+    },
+    {
+      "uuid": "60afe5b0-66ae-11ed-bd50-0242ac180007",
+      "name": "VALYRIO UAT",
+      "baseUrl": "https://valyrio-uat.aper.cloud/"
+    },
+    {
+      "uuid": "071b7da4-66ad-11ed-bd50-0242ac180007",
+      "name": "VALYRIO DEV",
+      "baseUrl": "https://valyrio-dev.aper.cloud/"
+    },
+    {
+      "uuid": "aaab243b-66ae-11ed-bd50-0242ac180007",
+      "name": "ICBC PROD",
+      "baseUrl": "https://mall.icbc.com.ar/"
+    },
+    {
+      "uuid": "b5ec0088-66ae-11ed-bd50-0242ac180007",
+      "name": "ICBC UAT",
+      "baseUrl": "https://icbcmall-uat.aper.cloud/"
+    },
+    {
+      "uuid": "c084c20d-66ae-11ed-bd50-0242ac180007",
+      "name": "ICBC DEV",
+      "baseUrl": "https://icbcmall-dev.aper.cloud/"
+    },
+    {
+      "uuid": "1f89a984-82f3-11ee-9a3b-0242ac140002",
+      "name": "BANCOLOMBIA UAT",
+      "baseUrl": "https://bancolombia-uat.aper.cloud/"
+    },
+    {
+      "uuid": "aca3b0ad-8a43-11ee-b168-0242ac120006",
+      "name": "BANCOLOMBIA PROD",
+      "baseUrl": "https://tu360compras.grupobancolombia.com/"
+    },
+    {
+      "uuid": "90fcff80-9d1d-11ee-8bb8-0242c0a82007",
+      "name": "GALICIA UAT",
+      "baseUrl": "https://galicia-uat.aper.cloud/"
+    },
+    {
+      "uuid": "fe8c4384-9d1d-11ee-8bb8-0242c0a82007",
+      "name": "GALICIA PROD",
+      "baseUrl": "https://productos.quiero.com.ar/"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+include:
+  - project: 'apernet/bazaar/pipelines/gitlab-ci'
+    file:
+      - '/yarn/templates/basic-application.v2.yml'

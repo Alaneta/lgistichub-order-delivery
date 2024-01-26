@@ -1,0 +1,115 @@
+# Default values for aperservice.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+deployment:
+  repository: 134818731107.dkr.ecr.us-east-1.amazonaws.com/aper-logistichub-orderdelivery-39448034
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 1.5.2
+
+  replicaCount: 2
+  imagePullSecrets: []
+
+  pod:
+    annotations: {}
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+      ephemeral-storage: "2Gi"
+    requests:
+      cpu: 30m
+      memory: 64Mi
+
+  containers:
+    main:
+      # 1. Kubernetes decides to terminate POD, and transitions to "Terminating" state.
+      # 2. POD is removed from service endpoints and stops receiving traffic.
+      # 3. SIGTERM is sent to the container.
+      # 4. GracePeriod starts to run and applications inside the container should be shutting down.
+      # 5. IF container shuts down healthily OR GracePriod ends, SIGKILL is sent to the POD and removed from ETCD.
+      terminationGracePeriodSeconds: 30
+
+      # Container port within the POD.
+      ports:
+        - name: http
+          port: 3000
+          protocol: TCP
+
+      # We set the context at a POD level, so it applies to all containers.
+      securityContext: {}
+
+
+configmap: {}
+
+service:
+  type: ClusterIP
+  name: aper-logistichub-orderdelivery
+  ports:
+    - port: 80
+      protocol: TCP
+      name: http
+      targetPort: 3000
+
+
+
+ingress:
+  enabled: true
+  main:
+    - host: "api-dev.aper.cloud"
+      paths:
+        - path: /api/orders
+          pathType: Prefix
+          serviceName: aper-logistichub-orderdelivery
+          servicePort: 80
+        - path: /api/orders/
+          pathType: Prefix
+          serviceName: aper-logistichub-orderdelivery
+          servicePort: 80
+          
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 90
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # Role ARN to assume on AWS account
+  # For example: "arn:aws:iam::637113613717:role/sandbox-role-eks-secret-manager-dev"
+  iamRoleARN: "arn:aws:iam::706367706288:role/services-sqs-dev"
+
+externalSecret:
+  # Specifies whether an external secret integration with AWS Secrets Manager should be created.
+  create: true
+  secretName: "services-eks-lh-od-dev"
+  keys:
+  - DB_PASSWORD
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+environment:
+  - name: NODE_ENV
+    value: "development"
